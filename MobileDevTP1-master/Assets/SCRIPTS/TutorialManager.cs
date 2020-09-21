@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour {
     void Update() {
         if (p1.GetTutorialTerminado() && p2.GetTutorialTerminado() && !cambiandoEscena) {
             cambiandoEscena = true;
-        principalCamera.SetActive(true);
+            principalCamera.SetActive(true);
             cameras[0].SetActive(false);
             cameras[1].SetActive(false);
             pc.CargarEscena("conduccion9");
