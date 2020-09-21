@@ -10,6 +10,7 @@ public class ManagerSelecciones : MonoBehaviour {
     [SerializeField] PantallaDeCarga pantallaCarga;
     void Start() {
         managerGameplay = FindObjectOfType<ManagerGameplay>();
+        pantallaCarga = FindObjectOfType<PantallaDeCarga>();
     }
 
     public void TocarBotonPlay() {
