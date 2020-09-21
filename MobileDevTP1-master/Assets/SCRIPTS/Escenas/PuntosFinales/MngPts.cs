@@ -31,55 +31,19 @@ public class MngPts : MonoBehaviour
 	public bool ActivadoAnims = false;
 	
 	Visualizacion Viz = new Visualizacion();
-	
+
 	//---------------------------------//
-	
+	PantallaDeCarga pantallaCarga;
 	// Use this for initialization
 	void Start () 
 	{		
 		SetGanador();
+		pantallaCarga = FindObjectOfType<PantallaDeCarga>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
-	{
-		//PARA JUGAR
-		if(Input.GetKeyDown(KeyCode.KeypadEnter) || 
-		   Input.GetKeyDown(KeyCode.Return) ||
-		   Input.GetKeyDown(KeyCode.Mouse0))
-		{
-			Application.LoadLevel(0);
-		}
-		
-		//REINICIAR
-		if(Input.GetKeyDown(KeyCode.Mouse1) ||
-		   Input.GetKeyDown(KeyCode.Keypad0))
-		{
-			Application.LoadLevel(Application.loadedLevel);
-		}
-		
-		//CIERRA LA APLICACION
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
-		
-		//CALIBRACION DEL KINECT
-		if(Input.GetKeyDown(KeyCode.Backspace))
-		{
-			Application.LoadLevel(3);
-		}		
-		
-		
-		TiempEspReiniciar -= Time.deltaTime;
-		if(TiempEspReiniciar <= 0 )
-		{
-			Application.LoadLevel(0);
-		}
-		
-		
-		
-		
+	{	
 		if(ActivadoAnims)
 		{
 			TempoParpadeo += Time.deltaTime;
@@ -113,14 +77,10 @@ public class MngPts : MonoBehaviour
 		
 	}
 	
-	/*
-	void OnGUI()
-	{
-		SetGUIGanador();
-		SetGUIPerdedor();
-		GUI.skin = null;
+	public void ButtonPressed(string stl) {
+		if (pantallaCarga != null)
+			pantallaCarga.CargarEscena(stl);
 	}
-	*/
 	
 	void OnGUI()
 	{
@@ -132,43 +92,6 @@ public class MngPts : MonoBehaviour
 		
 		GUI.skin = null;
 	}
-	
-	//---------------------------------//
-	
-	/*
-	void SetGUIGanador()
-	{
-		GUI.skin = GS_Vict;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "GANADOR" + '\n' + "DINERO: " + DatosPartida.PtsGanador);
-		
-	}
-	
-	void SetGUIPerdedor()
-	{
-		GUI.skin = GS_Derr;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "PERDEDOR" + '\n' + "DINERO: " + DatosPartida.PtsPerdedor);
-	}
-	*/
 	
 	void SetGanador()
 	{

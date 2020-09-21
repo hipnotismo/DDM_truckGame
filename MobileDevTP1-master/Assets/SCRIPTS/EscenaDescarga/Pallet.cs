@@ -18,11 +18,13 @@ public class Pallet : MonoBehaviour
 	public float TiempSmoot = 0.3f;
 	float TempoSmoot = 0;
 	public bool EnSmoot = false;
-	
-	//----------------------------------------------//
+
+	ManoRecept manoReceptPortador;
 	
 	void Start()
 	{
+		if (Portador != null)
+			manoReceptPortador = Portador.GetComponent<ManoRecept>();
 		Pasaje();
 	}
 	
@@ -32,7 +34,7 @@ public class Pallet : MonoBehaviour
 		{
 			if(EnSmoot)
 			{
-				TempoSmoot += T.GetDT();
+				TempoSmoot += Time.deltaTime;
 				if(TempoSmoot >= TiempSmoot)
 				{
 					EnSmoot = false;
@@ -40,20 +42,16 @@ public class Pallet : MonoBehaviour
 				}
 				else
 				{
-					print("smoot");
-					
-					if(Portador.GetComponent<ManoRecept>() != null)
+					if(manoReceptPortador != null)
 						transform.position = Portador.transform.position - Vector3.up * 1.2f;
 					else
-						transform.position = Vector3.Lerp(transform.position, Portador.transform.position, T.GetDT() * 10);
+						transform.position = Vector3.Lerp(transform.position, Portador.transform.position, Time.deltaTime * 10);
 				}
 				
 			}
 			else
 			{
-				print("crudo");
-				
-				if(Portador.GetComponent<ManoRecept>() != null)
+				if(manoReceptPortador != null)
 					transform.position = Portador.transform.position - Vector3.up * 1.2f;
 				else
 					transform.position = Portador.transform.position;

@@ -26,7 +26,7 @@ public class CollContraObst : MonoBehaviour
 			break;
 			
 		case Colisiones.EspDesact:
-			Tempo1 += T.GetDT();
+				Tempo1 += Time.deltaTime;
 			if(Tempo1 >= TiempEsp)
 			{
 				Tempo1 = 0;
@@ -35,7 +35,7 @@ public class CollContraObst : MonoBehaviour
 			break;
 			
 		case Colisiones.SinObst:
-			Tempo2 += T.GetDT();
+				Tempo2 += Time.deltaTime;
 			if(Tempo2 >= TiempNoColl)
 			{
 				Tempo2 = 0;
@@ -73,8 +73,6 @@ public class CollContraObst : MonoBehaviour
 	
 	void IgnorarColls(bool b)
 	{
-		print("IgnorarColls() / b = " + b);
-		
 		if(name == "Camion1")
 		{
 			Physics.IgnoreLayerCollision(8,10,b);

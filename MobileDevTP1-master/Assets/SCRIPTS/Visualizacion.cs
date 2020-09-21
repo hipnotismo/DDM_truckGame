@@ -92,15 +92,17 @@ public class Visualizacion : MonoBehaviour
 	
 	
 	Rect R;
-	
+
 	//------------------------------------------------------------------//
-	
+
+		Renderer techoRend;
 	// Use this for initialization
 	void Start () 
 	{
 		TempoIntTuto = Intervalo;
 		Direccion = GetComponent<ControlDireccion>();
 		Pj = GetComponent<Player>();
+		techoRend = Techo.GetComponent<Renderer>();
 	}
 	
 	// Update is called once per frame
@@ -210,11 +212,11 @@ public class Visualizacion : MonoBehaviour
 		
 		if(LadoAct == Visualizacion.Lado.Izq)
 		{
-			Techo.GetComponent<Renderer>().material.mainTexture = TextNum1;
+			techoRend.material.mainTexture = TextNum1;
 		}
 		else
 		{
-			Techo.GetComponent<Renderer>().material.mainTexture = TextNum2;
+			techoRend.material.mainTexture = TextNum2;
 		}
 	}
 	
@@ -295,9 +297,9 @@ public class Visualizacion : MonoBehaviour
 			break;
 			
 		case ContrCalibracion.Estados.Tutorial:
-			//tome la bolsa y depositela en el estante
-			
-			TempoIntTuto += T.GetDT();
+				//tome la bolsa y depositela en el estante
+
+				TempoIntTuto += Time.deltaTime;
 			if(TempoIntTuto >= Intervalo)
 			{
 				TempoIntTuto = 0;
@@ -465,8 +467,8 @@ public class Visualizacion : MonoBehaviour
 				GS_Inv.box.normal.background = TextInvDer[contador];
 			else
 			{
-				TempParp += T.GetDT();
-				
+				TempParp += Time.deltaTime;
+
 				if(TempParp >= Parpadeo)
 				{
 					TempParp = 0;
@@ -493,8 +495,8 @@ public class Visualizacion : MonoBehaviour
 				GS_Inv.box.normal.background = TextInvIzq[contador];
 			else
 			{
-				TempParp += T.GetDT();
-				
+				TempParp += Time.deltaTime;
+
 				if(TempParp >= Parpadeo)
 				{
 					TempParp = 0;

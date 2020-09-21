@@ -16,9 +16,10 @@ public class Respawn : MonoBehaviour
 	bool IgnorandoColision = false;
 	public float TiempDeNoColision = 2;
 	float Tempo = 0;
-	
-	//--------------------------------------------------------//
 
+	//--------------------------------------------------------//
+	Rigidbody rb;
+	Visualizacion vis;
 	// Use this for initialization
 	void Start () 
 	{
@@ -30,6 +31,8 @@ public class Respawn : MonoBehaviour
 		
 		//restaura las colisiones
 		Physics.IgnoreLayerCollision(8,9,false);
+		rb = GetComponent<Rigidbody>();
+		vis = GetComponent<Visualizacion>();
 	}
 	
 	// Update is called once per frame
@@ -50,7 +53,7 @@ public class Respawn : MonoBehaviour
 		
 		if(IgnorandoColision)
 		{
-			Tempo += T.GetDT();
+			Tempo += Time.deltaTime;
 			if(Tempo > TiempDeNoColision)
 			{
 				IgnorarColision(false);
@@ -63,13 +66,13 @@ public class Respawn : MonoBehaviour
 	
 	public void Respawnear()
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		rb.velocity = Vector3.zero;
 		
 		gameObject.SendMessage("SetGiro", 0f);
 		
 		if(CPAct.Habilitado())
 		{
-			if(GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
+			if(vis.LadoAct == Visualizacion.Lado.Der)
 				transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer, RangMaxDer);
 			else 
 				transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
@@ -77,7 +80,7 @@ public class Respawn : MonoBehaviour
 		}
 		else if(CPAnt != null)
 		{
-			if(GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
+			if(vis.LadoAct == Visualizacion.Lado.Der)
 				transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer, RangMaxDer);
 			else
 				transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
@@ -92,7 +95,7 @@ public class Respawn : MonoBehaviour
 	
 	public void Respawnear(Vector3 pos)
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		rb.velocity = Vector3.zero;
 		
 		gameObject.SendMessage("SetGiro", 0f);
 		
@@ -103,7 +106,7 @@ public class Respawn : MonoBehaviour
 	
 	public void Respawnear(Vector3 pos, Vector3 dir)
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		rb.velocity = Vector3.zero;
 		
 		gameObject.SendMessage("SetGiro", 0f);
 		
