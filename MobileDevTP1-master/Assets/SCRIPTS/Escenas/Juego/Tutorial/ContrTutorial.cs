@@ -18,8 +18,7 @@ public class ContrTutorial : MonoBehaviour
 	void Start () 
 	{
 		GM = GameObject.Find("GameMgr").GetComponent<GameManager>();
-		
-		Pj.ContrTuto = this;
+	
 	}
 	
 	// Update is called once per frame
@@ -57,7 +56,6 @@ public class ContrTutorial : MonoBehaviour
 	public void Finalizar()
 	{
 		Finalizado = true;
-		GM.FinTutorial(Pj.IdPlayer);
 		Pj.GetComponent<Frenado>().Frenar();
 		Pj.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		Pj.VaciarInv();
