@@ -101,6 +101,11 @@ public class Player : MonoBehaviour
 		return ContrDesc;
 	}
 	
+	public void CambioPlata() {
+		if (CambiadaPlata != null)
+			CambiadaPlata((int)lado, Dinero);
+	}
+
 	public void CambiarACalibracion()
 	{
 		MiVisualizacion.CambiarACalibracion();

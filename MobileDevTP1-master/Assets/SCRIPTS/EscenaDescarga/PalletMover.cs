@@ -13,6 +13,21 @@ public class PalletMover : ManejoPallets {
     public ManejoPallets Desde, Hasta;
     bool segundoCompleto = false;
 
+    [SerializeField] GameObject[] botones;
+
+    private void Start() {
+#if UNITY_EDITOR
+        for (int i = 0; i < botones.Length; i++)
+            if (botones[i] != null)
+                botones[i].SetActive(false);
+#elif UNITY_ANDROID || UNITY_IOS
+        for (int i = 0; i < botones.Length; i++)
+            if (botones[i] != null)
+                botones[i].SetActive(true);
+#endif
+
+    }
+
     private void Update() {
         switch (miInput) {
             case MoveType.WASD:
@@ -40,6 +55,15 @@ public class PalletMover : ManejoPallets {
             default:
                 break;
         }
+    }
+
+    public void BotonBolsa(int boton) {
+        if (boton == 1)
+            PrimerPaso();
+        else if (boton == 2)
+            SegundoPaso();
+        else if (boton == 3)
+            TercerPaso();
     }
 
     void PrimerPaso() {

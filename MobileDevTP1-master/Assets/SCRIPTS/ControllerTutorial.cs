@@ -88,6 +88,34 @@ public class ControllerTutorial : MonoBehaviour {
                     break;
             }
     }
+    bool boton0tocado;
+    bool boton1tocado;
+    bool boton2tocado;
+    bool boton3tocado;
+    public void TocadoBoton(int b) {
+        if(b == 0 && !boton0tocado) {
+            image.sprite = images[0];
+            bolsa.gameObject.SetActive(true);
+            faseTutorial = 1;
+            boton0tocado = true;
+        }
+        else if (b == 1 && !boton1tocado) {
+            image.sprite = images[1];
+            faseTutorial = 2;
+            StartCoroutine(Move());
+            boton1tocado = true;
+        }
+        else if (b == 2 && !boton2tocado) {
+            image.sprite = images[2];
+            faseTutorial = 3;
+            boton2tocado = true;
+        }
+        else if (b == 3 && !boton3tocado) {
+            StartCoroutine(Move());
+            image.sprite = images[3];
+            boton3tocado = true;
+        }
+    }
 
     IEnumerator Move() {
         moving = true;

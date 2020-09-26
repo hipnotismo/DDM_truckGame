@@ -10,13 +10,28 @@ public class TutorialManager : MonoBehaviour {
     bool cambiandoEscena;
     [SerializeField] GameObject[] cameras;
     [SerializeField] GameObject principalCamera;
+
+    [SerializeField] GameObject[] botones;
+    [SerializeField] Camera camP1;
+    [SerializeField] GameObject Escena2;
     void Start() {
         principalCamera.SetActive(false);
         pc = FindObjectOfType<PantallaDeCarga>();
+#if UNITY_EDITOR 
+        for (int i = 0; i < botones.Length; i++)
+            if (botones[i] != null)
+                botones[i].SetActive(false);
+#elif UNITY_ANDROID || UNITY_IOS
+        camP1.rect = new Rect(0, 0, 1, 1);
+        Escena2.SetActive(false);
+#endif
+
     }
 
     // Update is called once per frame
     void Update() {
+
+#if UNITY_EDITOR
         if (p1.GetTutorialTerminado() && p2.GetTutorialTerminado() && !cambiandoEscena) {
             cambiandoEscena = true;
             principalCamera.SetActive(true);
@@ -24,5 +39,15 @@ public class TutorialManager : MonoBehaviour {
             cameras[1].SetActive(false);
             pc.CargarEscena("conduccion9");
         }
+#elif UNITY_ANDROID || UNITY_IOS
+       if (p1.GetTutorialTerminado() && !cambiandoEscena) {
+            cambiandoEscena = true;
+            principalCamera.SetActive(true);
+            cameras[0].SetActive(false);
+            pc.CargarEscena("conduccion9");
+        }
+#endif
+
+
     }
 }

@@ -16,12 +16,57 @@ public class UIManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI plataIzq;
     [SerializeField] TextMeshProUGUI plataDer;
 
+    [SerializeField] TextMeshProUGUI plataIzqDesc;
+    [SerializeField] TextMeshProUGUI plataDerDesc;
+
+    [SerializeField] GameObject gameDerCosas;
+    [SerializeField] GameObject descDerCosas;
+
+    [SerializeField] GameObject[] botones;
+    [SerializeField] GameObject[] sticks;
     public enum Lado {
         Izq,
         Der
     }
 
     private void Start() {
+        for (int i = 0; i < UIGame.Length; i++)
+            UIGame[i].SetActive(true);
+        for (int i = 0; i < UIDescarga.Length; i++)
+            UIDescarga[i].SetActive(false);
+
+#if UNITY_EDITOR
+        spriteDer.gameObject.SetActive(true);
+        plataDerDesc.gameObject.SetActive(true);
+        plataDer.gameObject.SetActive(true);
+
+        for (int i = 0; i < botones.Length; i++)
+            if (botones[i] != null)
+                botones[i].SetActive(false);
+
+
+        sticks[0].SetActive(false);
+        sticks[1].SetActive(false);
+
+#elif UNITY_ANDROID || UNITY_IOS
+              spriteDer.gameObject.SetActive(false);
+               plataDerDesc.gameObject.SetActive(false);
+               plataDer.gameObject.SetActive(false);
+
+     for (int i = 0; i < botones.Length; i++)
+            if (botones[i] != null)
+                botones[i].SetActive(true);
+
+        volantes[0].SetActive(true);
+        sticks[0].SetActive(true);
+        sticks[1].SetActive(true);
+
+#endif
+
+
+
+
+
         Player.CambiadaPlata += PlataCambio;
         Player.DescargaSalida += SalidaDescarga;
         Player.DescargaEntrada += EntradaDescarga;
@@ -35,10 +80,14 @@ public class UIManager : MonoBehaviour {
     }
 
     void PlataCambio(int l, float p) {
-        if (l == (int)Lado.Izq)
+        if (l == (int)Lado.Izq) {
             plataIzq.text = "$: " + (p / 1000f).ToString("F2");
-        else if (l == (int)Lado.Der)
+            plataIzqDesc.text = "$: " + (p / 1000f).ToString("F2");
+        }
+        else if (l == (int)Lado.Der) {
             plataDer.text = "$: " + (p / 1000f).ToString("F2");
+            plataDerDesc.text = "$: " + (p / 1000f).ToString("F2");
+        }
     }
 
     void EntradaDescarga(int l) {

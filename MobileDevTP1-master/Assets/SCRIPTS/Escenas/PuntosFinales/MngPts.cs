@@ -37,7 +37,6 @@ public class MngPts : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{		
-		SetGanador();
 		pantallaCarga = FindObjectOfType<PantallaDeCarga>();
 	}
 
@@ -81,93 +80,5 @@ public class MngPts : MonoBehaviour
 		if (pantallaCarga != null)
 			pantallaCarga.CargarEscena(stl);
 	}
-	
-	void OnGUI()
-	{
-		if(ActivadoAnims)
-		{
-			SetDinero();
-			SetCartelGanador();
-		}
-		
-		GUI.skin = null;
-	}
-	
-	void SetGanador()
-	{
-		switch(DatosPartida.LadoGanadaor)
-		{
-		case DatosPartida.Lados.Der:
-			
-			GS_Ganador.box.normal.background = Ganadores[1];
-			
-			break;
-			
-		case DatosPartida.Lados.Izq:
-			
-			GS_Ganador.box.normal.background = Ganadores[0];
-			
-			break;
-		}
-	}
-	
-	void SetDinero()
-	{
-		GUI.skin = GS_Dinero;
-		
-		R.width = DineroEsc.x * Screen.width/100;
-		R.height = DineroEsc.y * Screen.height/100;
-		
-		
-		
-		//IZQUIERDA
-		R.x = DineroPos[0].x * Screen.width/100;
-		R.y = DineroPos[0].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)//izquierda
-		{
-			if(!PrimerImaParp)//para que parpadee
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
-		
-		
-		//DERECHA
-		R.x = DineroPos[1].x * Screen.width/100;
-		R.y = DineroPos[1].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)//derecha
-		{
-			if(!PrimerImaParp)//para que parpadee
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
-	}
-	
-	void SetCartelGanador()
-	{
-		GUI.skin = GS_Ganador;
-		
-		R.width = GanadorEsc.x * Screen.width/100;
-		R.height = GanadorEsc.y * Screen.height/100;
-		R.x = GanadorPos.x * Screen.width/100;
-		R.y = GanadorPos.y * Screen.height/100;
-		
-		//if(PrimerImaParp)//para que parpadee
-			GUI.Box(R, "");
-	}
-	
-	public void DesaparecerGUI()
-	{
-		ActivadoAnims = false;
-		Tempo = -100;
-	}
+
 }

@@ -18,63 +18,25 @@ public class GameManager : MonoBehaviour {
     public Player Player1;
     public Player Player2;
 
-    //mueve los esqueletos para usar siempre los mismos
-    public Transform Esqueleto1;
-    public Transform Esqueleto2;
-    //public Vector3[] PosEsqsCalib;
-    public Vector3[] PosEsqsCarrera;
 
-    bool PosSeteada = false;
+    [SerializeField] GameObject[] objetosApagarFacil;
+    [SerializeField] GameObject[] objetosApagarNormal;
+    [SerializeField] GameObject[] objetosApagarDificil;
 
-    bool ConteoRedresivo = true;
-    public Rect ConteoPosEsc;
-    public float ConteoParaInicion = 3;
-    public GUISkin GS_ConteoInicio;
-
-    public Rect TiempoGUI = new Rect();
-    public GUISkin GS_TiempoGUI;
-    Rect R = new Rect();
-
-    public float TiempEspMuestraPts = 3;
-
-    //posiciones de los camiones dependientes del lado que les toco en la pantalla
-    //la pos 0 es para la izquierda y la 1 para la derecha
-    public Vector3[] PosCamionesCarrera = new Vector3[2];
-    //posiciones de los camiones para el tutorial
-    public Vector3 PosCamion1Tuto = Vector3.zero;
-    public Vector3 PosCamion2Tuto = Vector3.zero;
-
-    //listas de GO que activa y desactiva por sub-escena
-    //escena de calibracion
-    public GameObject[] ObjsCalibracion1;
-    public GameObject[] ObjsCalibracion2;
-    //escena de tutorial
-    public GameObject[] ObjsTuto1;
-    public GameObject[] ObjsTuto2;
-    //la pista de carreras
-    public GameObject[] ObjsCarrera;
-    //de las descargas se encarga el controlador de descargas
-
-    //para saber que el los ultimos 5 o 10 segs se cambie de tamaño la font del tiempo
-    //bool SeteadoNuevaFontSize = false;
-    //int TamOrigFont = 75;
-    //int TamNuevoFont = 75;
-
-    /*
-	//para el testing
-	public float DistanciaRecorrida = 0;
-	public float TiempoTranscurrido = 0;
-	*/
-
-    IList<int> users;
-
-    //--------------------------------------------------------//
+    [SerializeField] ManagerGameplay mg;
     [SerializeField] PantallaDeCarga pantallaCarga;
+
+    [SerializeField] GameObject[] p2Objects;
+
+    [SerializeField] Camera camp1;
+    [SerializeField] Camera camp1Entrega;
+
     void Awake() {
         GameManager.Instancia = this;
     }
 
     void Start() {
+
         //IniciarCalibracion();
         EmpezarCarrera();
         //para testing
@@ -82,6 +44,46 @@ public class GameManager : MonoBehaviour {
         //PosCamionesCarrera[1].x+=100;
         StartCoroutine(Play());
         pantallaCarga = FindObjectOfType<PantallaDeCarga>();
+        mg = FindObjectOfType<ManagerGameplay>();
+
+        if(mg!=null)
+            switch (mg.GetDificultad()) {
+                case ManagerGameplay.Dificultad.Easy:
+                    for (int i = 0; i < objetosApagarFacil.Length; i++)
+                        if (objetosApagarFacil[i] != null)
+                            objetosApagarFacil[i].SetActive(false);
+                    break;
+                case ManagerGameplay.Dificultad.Normal:
+                    for (int i = 0; i < objetosApagarNormal.Length; i++)
+                        if (objetosApagarNormal[i] != null)
+                            objetosApagarNormal[i].SetActive(false); 
+                    break;
+                case ManagerGameplay.Dificultad.Dificil:
+                    for (int i = 0; i < objetosApagarDificil.Length; i++)
+                        if (objetosApagarDificil[i] != null)
+                            objetosApagarDificil[i].SetActive(false); 
+                    break;
+            }
+
+        for (int i = 0; i < p2Objects.Length; i++)
+            if (p2Objects[i] != null)
+                p2Objects[i].SetActive(false);
+
+
+       #if UNITY_EDITOR
+               for (int i = 0; i < p2Objects.Length; i++)
+                   if (p2Objects[i] != null)
+                       p2Objects[i].SetActive(true);
+       #elif UNITY_ANDROID || UNITY_IOS
+               for (int i = 0; i < p2Objects.Length; i++)
+                   if (p2Objects[i] != null)
+                       p2Objects[i].SetActive(false);
+
+        camp1.rect = new Rect(0f, 0f, 1f, 1f);
+        camp1Entrega.rect = new Rect(0f, 0f, 1f, 1f);
+       #endif
+
+        
     }
 
     IEnumerator Play() {
@@ -92,38 +94,6 @@ public class GameManager : MonoBehaviour {
         StopCoroutine(Play());
         yield return null;
     }
-
-    void OnGUI() {
-        switch (EstAct) {
-            case EstadoJuego.Jugando:
-                if (ConteoRedresivo) {
-                    GUI.skin = GS_ConteoInicio;
-
-                    R.x = ConteoPosEsc.x * Screen.width / 100;
-                    R.y = ConteoPosEsc.y * Screen.height / 100;
-                    R.width = ConteoPosEsc.width * Screen.width / 100;
-                    R.height = ConteoPosEsc.height * Screen.height / 100;
-
-                    if (ConteoParaInicion > 1) {
-                        GUI.Box(R, ConteoParaInicion.ToString("0"));
-                    }
-                    else {
-                        GUI.Box(R, "GO");
-                    }
-                }
-
-                GUI.skin = GS_TiempoGUI;
-                R.x = TiempoGUI.x * Screen.width / 100;
-                R.y = TiempoGUI.y * Screen.height / 100;
-                R.width = TiempoGUI.width * Screen.width / 100;
-                R.height = TiempoGUI.height * Screen.height / 100;
-                GUI.Box(R, TiempoDeJuego.ToString("00"));
-                break;
-        }
-
-        GUI.skin = null;
-    }
-
 
     void EmpezarCarrera() {
         Player1.GetComponent<Frenado>().RestaurarVel();

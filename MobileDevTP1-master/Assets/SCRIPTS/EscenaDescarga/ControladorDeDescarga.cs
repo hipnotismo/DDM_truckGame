@@ -38,10 +38,6 @@ public class ControladorDeDescarga : MonoBehaviour
 	
 	public AnimMngDesc ObjAnimado;
 
-	
-	//--------------------------------------------------------------//
-
-	// Use this for initialization
 	void Start () 
 	{
 		for (int i = 0; i < Componentes.Length; i++)
@@ -64,12 +60,13 @@ public class ControladorDeDescarga : MonoBehaviour
 			if(TempoBonus > 0)
 			{
 				Bonus = (TempoBonus * (float)PEnMov.Valor) / PEnMov.Tiempo;
+		
 				TempoBonus -= Time.deltaTime;
 			}
 			else
 			{
 				Bonus = 0;
-			}		
+			}
 		}
 		
 		
@@ -144,7 +141,7 @@ public class ControladorDeDescarga : MonoBehaviour
 		Contador--;
 		
 		Pj.Dinero += (int)Bonus;
-		
+		Pj.CambioPlata();
 		if(Contador <= 0)
 		{
 			Finalizacion();

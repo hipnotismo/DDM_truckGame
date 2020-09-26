@@ -11,21 +11,23 @@ public class CarController : MonoBehaviour {
     float giro = 0f;
     float acel = 1f;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
+    public enum Lado {
+        Izq,
+        Der
+    }
 
-	
-	// Update is called once per frame
+    public Lado lado;
+
 	void FixedUpdate () {
         foreach (var wheel in throttleWheels) {
             wheel.motorTorque = throttleCoefficient * Time.fixedDeltaTime * acel;
         }
         foreach (var wheel in steeringWheels) {
-            wheel.steerAngle = maxTurn * giro;
+            if(lado == Lado.Izq)
+                wheel.steerAngle = maxTurn * InputManager.Instance.GetAxis("Horizontal1");
+            else if (lado == Lado.Der)
+                wheel.steerAngle = maxTurn * InputManager.Instance.GetAxis("Horizontal2");
         }
-        giro = 0f;
     }
 
     public void SetGiro(float giro) {
