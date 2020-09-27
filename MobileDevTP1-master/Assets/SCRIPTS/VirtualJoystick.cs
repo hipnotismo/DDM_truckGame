@@ -39,14 +39,15 @@ public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData) {
         if (stick != null && background != null) {
-            background.color = Color.blue;
+            background.color = new Color(0f, 0f, 1f, 0.059f);
             stick.anchoredPosition = ConvertToLocalPos(eventData);
         }
     }
 
     public void OnPointerUp(PointerEventData eventData) {
         if (stick != null && background != null) {
-            background.color = Color.gray;
+            background.color = new Color(1f, 1f, 1f, 0.059f);
+            
             stick.anchoredPosition = Vector2.zero;
         }
         if (lado == Lado.Izq)

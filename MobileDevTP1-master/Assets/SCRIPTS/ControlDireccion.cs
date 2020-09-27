@@ -22,9 +22,6 @@ public class ControlDireccion : MonoBehaviour {
     //---------------------------------------------------------//
 
     // Use this for initialization
-    void Start() {
-        Debug.Log(InputAct);
-    }
 
     // Update is called once per frame
     void Update() {
@@ -33,11 +30,9 @@ public class ControlDireccion : MonoBehaviour {
                 if (Habilitado) {
                     if (Input.GetKey(KeyCode.A)) {
                         gameObject.SendMessage("SetGiro", -1);
-                        Debug.Log("Toca A");
                     }
                     if (Input.GetKey(KeyCode.D)) {
                         gameObject.SendMessage("SetGiro", 1);
-                        Debug.Log("Toca D");
                     }
                 }
                 break;
@@ -45,11 +40,10 @@ public class ControlDireccion : MonoBehaviour {
                 if (Habilitado) {
                     if (Input.GetKey(KeyCode.LeftArrow)) {
                         gameObject.SendMessage("SetGiro", -1);
-                        Debug.Log("Toca LEFT");
+ 
                     }
                     if (Input.GetKey(KeyCode.RightArrow)) {
                         gameObject.SendMessage("SetGiro", 1);
-                        Debug.Log("Toca RIGHT");
                     }
                 }
                 break;

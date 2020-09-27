@@ -23,7 +23,9 @@ public class PalletMover : ManejoPallets {
 #elif UNITY_ANDROID || UNITY_IOS
         for (int i = 0; i < botones.Length; i++)
             if (botones[i] != null)
-                botones[i].SetActive(true);
+                botones[i].SetActive(false);
+        if (botones[0] != null)
+            botones[0].SetActive(true);
 #endif
 
     }
@@ -58,12 +60,19 @@ public class PalletMover : ManejoPallets {
     }
 
     public void BotonBolsa(int boton) {
-        if (boton == 1)
+        if (boton == 1) {
             PrimerPaso();
-        else if (boton == 2)
+            botones[1].SetActive(true);
+        }
+        else if (boton == 2) {
             SegundoPaso();
-        else if (boton == 3)
+            botones[2].SetActive(true);
+        }
+        else if (boton == 3) {
             TercerPaso();
+            botones[1].SetActive(false);
+            botones[2].SetActive(false);
+        }
     }
 
     void PrimerPaso() {

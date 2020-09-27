@@ -55,11 +55,12 @@ public class UIManager : MonoBehaviour {
 
      for (int i = 0; i < botones.Length; i++)
             if (botones[i] != null)
-                botones[i].SetActive(true);
+                botones[i].SetActive(false);
 
-        volantes[0].SetActive(true);
+        botones[0].SetActive(true);
+
         sticks[0].SetActive(true);
-        sticks[1].SetActive(true);
+        sticks[1].SetActive(false);
 
 #endif
 

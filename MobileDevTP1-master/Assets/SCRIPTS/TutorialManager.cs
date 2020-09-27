@@ -17,11 +17,12 @@ public class TutorialManager : MonoBehaviour {
     void Start() {
         principalCamera.SetActive(false);
         pc = FindObjectOfType<PantallaDeCarga>();
-#if UNITY_EDITOR 
         for (int i = 0; i < botones.Length; i++)
             if (botones[i] != null)
                 botones[i].SetActive(false);
+#if UNITY_EDITOR 
 #elif UNITY_ANDROID || UNITY_IOS
+        botones[0].SetActive(true);
         camP1.rect = new Rect(0, 0, 1, 1);
         Escena2.SetActive(false);
 #endif

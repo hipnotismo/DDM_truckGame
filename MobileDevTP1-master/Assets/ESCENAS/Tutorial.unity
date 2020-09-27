@@ -1392,6 +1392,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 85fb8ad7e8276724f80ba96c5e78d99b, type: 3}
   image: {fileID: 2145388267}
   t: 1
+  botones: []
 --- !u!23 &786531056
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3049,6 +3050,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 85fb8ad7e8276724f80ba96c5e78d99b, type: 3}
   image: {fileID: 1660564338}
   t: 0
+  botones:
+  - {fileID: 1177217046}
+  - {fileID: 1870920750}
+  - {fileID: 800476041}
+  - {fileID: 583882085}
 --- !u!1 &1660564336
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ public class ControllerTutorial : MonoBehaviour {
 
     [SerializeField] Teclas t;
 
+    [SerializeField] GameObject[] botones;
+
     private void Start() {
         bolsa.gameObject.SetActive(false);
     }
@@ -98,17 +100,20 @@ public class ControllerTutorial : MonoBehaviour {
             bolsa.gameObject.SetActive(true);
             faseTutorial = 1;
             boton0tocado = true;
+            botones[1].gameObject.SetActive(true);
         }
         else if (b == 1 && !boton1tocado) {
             image.sprite = images[1];
             faseTutorial = 2;
             StartCoroutine(Move());
             boton1tocado = true;
+            botones[2].gameObject.SetActive(true);
         }
         else if (b == 2 && !boton2tocado) {
             image.sprite = images[2];
             faseTutorial = 3;
             boton2tocado = true;
+            botones[3].gameObject.SetActive(true);
         }
         else if (b == 3 && !boton3tocado) {
             StartCoroutine(Move());
